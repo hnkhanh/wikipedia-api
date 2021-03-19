@@ -6,22 +6,68 @@ body {
 	margin: 0;
   background-color: white;
   color: white;
-  background: url(https://thietbiketnoi.com/wp-content/uploads/2020/01/tong-hop-hinh-nen-background-vector-designer-dep-do-phan-giai-fhd-2k-4k-moi-nhat-4.jpg) no-repeat  ;
+  background: url(https://thietbiketnoi.com/wp-content/uploads/2020/01/tong-hop-hinh-nen-background-vector-designer-dep-do-phan-giai-fhd-2k-4k-moi-nhat-4.jpg) no-repeat;
   background-size: cover;
 	text-align: center;
 	display: flex;
 	justify-content: center;
-	font-family: Raleway, 'Courier New',
-  monospace;
+	box-sizing: border-box;
+}
+
+.scroll-btn {
+  display: inline-block;
+  background-color: none;
+  border: whitesmoke solid 5px;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 50px;
+  right: 40px;
+  -webkit-transition: background-color 0.3s, opacity 0.5s, visibility 0.5s;
+  transition: background-color 0.3s, opacity 0.5s, visibility 0.5s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+	span {
+		position: relative;
+		top: -5px;
+		font-weight: normal;
+		font-style: normal;
+		font-size: 2em;
+		line-height: 50px;
+		color: #fff;
+	}
+	&:hover {
+		cursor: pointer;
+		background-color: rgba(0, 0, 0, 0.9);
+	}
+	&:hover span {
+		color: #19f6e8;
+	}
+	&.show {
+		opacity: 1;
+		visibility: visible;
+	}
 }
 
 h1{
   font-size: 2em;
   font-weight: 700;
 }
+input[type=text]:not(.browser-default){
+  margin: 0;
+  color: white;
+  &:focus:not([readonly]){
+    border-bottom: none; 
+   -webkit-box-shadow: none; 
+    box-shadow: none;
+  }
+}
 
 .search-box {
-  border: solid 5px white;
+  border: solid 3px white;
 	display: inline-block;
 	position: relative;
 	border-radius: 50px;
@@ -36,37 +82,26 @@ h1{
 	font-size: 20px;
 	font-weight: 500;
 	background: transparent;
-
-	width: 50px;
+	width: 350px;
+	// width: 50px;
 	height: 50px;
-	padding: 5px 40px 5px 10px;
+	padding: 5px 40px 5px 20px;
 	border: none;
 	box-sizing: border-box;
 	border-radius: 50px;
-
-	transition: width 800ms cubic-bezier(0.5, -0.5, 0.5, 0.5) 600ms;
+	outline: none;
+	cursor: text;
+	caret-color: white;
     &::placeholder{
       color: rgba(255, 255, 255, 0.5);
     }
-	&:focus {
-		outline: none;
-	cursor: text;
-	caret-color: white;
+	+ span {
+		bottom: 14px;
+		right: 11px;
 	}
-	&:focus{
-		width: 350px;
-		transition: width 800ms cubic-bezier(0.5, -0.5, 0.5, 1.5);
-		+ span {
-			bottom: 13px;
-			right: 10px;
-			transition: bottom 300ms ease-out 800ms, right 300ms ease-out 800ms;
-		}
-		+ span:after {
-			top: 0;
-			right: 10px;
-			opacity: 1;
-			transition: top 300ms ease-out 1100ms, right 300ms ease-out 1100ms, opacity 300ms ease 1100ms;
-		}
+	+ span:after {
+		top: 0px;
+		right: 11.5px;
 		}
 	}
   span {
@@ -79,21 +114,20 @@ h1{
 		position: absolute;
 		bottom: -15px;
 		right: -15px;
-		transition: bottom 300ms ease-out 300ms, right 300ms ease-out 300ms;
+
 		&:before, &:after {
 			content: '';
-			height: 25px;
-			border-left: solid 5px white;
+			height: 24px;
+			border-left: solid 4px white;
 			position: absolute;
 			transform: rotate(-45deg);
+			border-radius: 10px;
 		}
 		
 		&:after {
 			transform: rotate(45deg);
-			opacity: 0;
 			top: -20px;
 			right: -10px;
-			transition: top 300ms ease-out, right 300ms ease-out, opacity 300ms ease-out;
 		}
 	}
 }
@@ -115,7 +149,7 @@ input[type=text]:not(.browser-default){
 .card {
 	.card-title{
 		padding-left: 0.5em;
-		font-weight: 500;
+		font-weight: 400;
 	}
 	.card-content {
 		padding:1em;
@@ -132,7 +166,6 @@ input[type=text]:not(.browser-default){
 			max-height: 300px;
 			border: 1px solid gray;
 			object-fit:contain;
-			// object-position: 50% 0;
 		}
 	}
 }

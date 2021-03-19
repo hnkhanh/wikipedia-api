@@ -2,8 +2,8 @@ import "./App.scss";
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
-import RenderPages from './RenderPages'
-import Loading from './Loading'
+import RenderPages from './components/RenderPages'
+import Loading from './components/Loading'
 
 export default function App() {
   
@@ -13,8 +13,7 @@ export default function App() {
   const [hasMore, setHasMore] = useState(true);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const URL =
-    "https://en.wikipedia.org/w/api.php?origin=*&action=query&format=json&prop=imageinfo%7Cextracts%7Cpageimages%7Cinfo&generator=search&exlimit=20&exintro=1&explaintext=1&piprop=thumbnail%7Cname%7Coriginal&pilimit=max&inprop=url&exsentences=1&gsrlimit=15";
+  const URL = "https://en.wikipedia.org/w/api.php?origin=*&action=query&format=json&prop=imageinfo%7Cextracts%7Cpageimages%7Cinfo&generator=search&exlimit=20&exintro=1&explaintext=1&piprop=thumbnail%7Cname%7Coriginal&pilimit=max&inprop=url&exsentences=1&gsrlimit=15";
   const myFetch = useRef(() => {});
   let cancel;
 
@@ -51,18 +50,18 @@ export default function App() {
           gsrsearch: query,
           gsroffset: addingPages
         },
-        cancelToken: new axios.CancelToken((c) => (cancel = c))
+        cancelToken: new axios.CancelToken(c => cancel = c)
       })
 
       if (!res.data.query) setError(true)
-       else {
+      else {
         let data = getPagesArray(res)
         if (data.length < 15) setHasMore(false)
         let nextPages = await axios
           .get(URL, {
           params: {
             gsrsearch: query,
-            gsroffset: addingPages + 15
+            gsroffset: addingPages + 1
           }
         })
         if(!nextPages.data.query) setHasMore(false)
@@ -95,7 +94,7 @@ export default function App() {
   return (
     <div className="App">
       <h1 className="white-text">Wikipedia Search API</h1>
-      <div className="search-box">
+      <form className="search-box">
         <input
           type="text"
           value={query}
@@ -103,7 +102,7 @@ export default function App() {
           placeholder="Searching for something?"
         />
         <span onClick={() => setQuery("") }></span>
-      </div>
+      </form>
       {error && query && !pages.length && !loading ?
         <img src="https://runwaycamp.cz/images/morpheus_meme.jpg" className="not-found" alt="not-found"/> :
         <InfiniteScroll
